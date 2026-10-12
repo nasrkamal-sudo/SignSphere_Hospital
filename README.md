@@ -1,4 +1,13 @@
-# SignSphere — live hospital sign-language interpreter
+<p align="center">
+  <img src="docs/logo.png" alt="SignSphere logo" width="220">
+</p>
+
+<p align="center"><b>Live two-way sign-language interpreter for hospitals</b><br>
+Patient camera → staff dashboard · staff speech → patient screen · English + Urdu</p>
+
+---
+
+## Overview
 
 Patient signs into the camera → the app recognises the signs → shows the answer in English + Urdu → the patient
 confirms → it appears on the staff dashboard in real time. Staff speak (or type) into the dashboard → the message
