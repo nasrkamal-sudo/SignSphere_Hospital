@@ -1,0 +1,9 @@
+{
+  "name": "signsphere-hospital",
+  "version": "1.0.0",
+  "description": "Live two-way sign-language interpreter for hospital use (patient camera -> staff dashboard; staff speech -> patient screen).",
+  "type": "module",
+  "private": true,
+  "scripts": { "start": "node server.js", "test": "node tests/slr_parity.test.mjs && node tests/live.test.mjs && node tests/train.test.mjs" },
+  "engines": { "node": ">=18" }
+}

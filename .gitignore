@@ -1,0 +1,8 @@
+# Runtime session logs (patient data) - never commit
+data/sessions.json
+
+node_modules/
+.claude/
+*.log
+.DS_Store
+Thumbs.db

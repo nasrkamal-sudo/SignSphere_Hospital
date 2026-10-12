@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SignSphere — Hospital sign language interpreter</title>
+<link rel="icon" type="image/png" href="/img/favicon.png">
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<div class="topbar">
+  <div class="brand">
+    <img class="logo" src="/img/signsphere-mark.png" width="40" height="40" alt="">
+    <div><b>SignSphere</b><small>Hospital sign language interpreter · live</small></div>
+  </div>
+  <div class="seg" role="group" aria-label="Choose screen" id="modeSeg">
+    <button data-act="mode" data-v="patient" aria-pressed="false">Patient screen</button>
+    <button data-act="mode" data-v="staff" aria-pressed="false">Staff screen</button>
+    <button data-act="mode" data-v="doctor" aria-pressed="false">Doctor screen <span class="tabbadge" id="docBadge" hidden></span></button>
+    <button data-act="mode" data-v="train" aria-pressed="false">Train signs</button>
+    <button data-act="mode" data-v="split" aria-pressed="false">Side by side</button>
+  </div>
+  <button class="beacon" id="beacon" data-act="goEmergency" role="alert" hidden></button>
+  <button class="sos" id="sosBtn" data-hold="sos" aria-label="Emergency. Press and hold for one and a half seconds." hidden></button>
+</div>
+<main id="app" data-mode="patient">
+  <section class="pane" id="paneP" aria-label="Patient screen"><div id="patientRoot"></div></section>
+  <section class="pane" id="paneS" aria-label="Staff dashboard"><div id="staffRoot"></div></section>
+  <section class="pane" id="paneD" aria-label="Doctor screen"><div id="doctorRoot"></div></section>
+  <section class="pane" id="paneT" aria-label="Train signs"><div id="trainRoot"></div></section>
+</main>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<div class="sr" aria-live="polite" id="live"></div>
+<script type="module" src="/js/app.js"></script>
+</body>
+</html>

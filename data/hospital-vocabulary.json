@@ -1,0 +1,69 @@
+{
+  "vocabulary": "hospital-triage-v1",
+  "variant": "signsphere-hospital-v1",
+  "description": "Focused sign vocabulary for the SignSphere hospital triage kiosk. Recognition output is constrained to these glosses; unrestricted translation is out of scope. Gestures are not assumed to be universal across sign languages: you record each sign yourself in the Train screen, so the model matches how YOUR signers sign it. 'reuse' lists glosses whose recordings are taken from the VIBETALK restaurant model (data/restaurant-signs-model.json) so those signs do not have to be recorded again.",
+  "reuse": {
+    "yes": "yes", "no": "no", "help": "help", "confirm": "confirm", "cancel": "cancel",
+    "one": "one", "two": "two", "three": "three", "four": "four", "five": "five"
+  },
+  "categories": {
+    "control": "Signs the patient uses to accept or discard what the screen understood.",
+    "answer": "Yes / No.",
+    "number": "Numbers used for durations.",
+    "body": "Where the problem is.",
+    "time": "How long it has been going on.",
+    "severity": "How bad it is.",
+    "symptom": "Other symptoms.",
+    "reply": "Extra words for replying to the doctor."
+  },
+  "glosses": [
+    {"id": "confirm", "cat": "control", "en": "Confirm", "ur": "تصدیق"},
+    {"id": "cancel", "cat": "control", "en": "Cancel", "ur": "منسوخ"},
+    {"id": "yes", "cat": "answer", "en": "Yes", "ur": "جی ہاں"},
+    {"id": "no", "cat": "answer", "en": "No", "ur": "نہیں"},
+    {"id": "help", "cat": "reply", "en": "Help", "ur": "مدد"},
+
+    {"id": "one", "cat": "number", "en": "1", "ur": "۱", "n": 1},
+    {"id": "two", "cat": "number", "en": "2", "ur": "۲", "n": 2},
+    {"id": "three", "cat": "number", "en": "3", "ur": "۳", "n": 3},
+    {"id": "four", "cat": "number", "en": "4", "ur": "۴", "n": 4},
+    {"id": "five", "cat": "number", "en": "5", "ur": "۵", "n": 5},
+
+    {"id": "head", "cat": "body", "en": "Head", "ur": "سر", "obj_en": "the head", "obj_ur": "سر"},
+    {"id": "ear", "cat": "body", "en": "Ear", "ur": "کان", "obj_en": "the ear", "obj_ur": "کان"},
+    {"id": "throat", "cat": "body", "en": "Throat", "ur": "گلا", "obj_en": "the throat", "obj_ur": "گلے"},
+    {"id": "chest", "cat": "body", "en": "Chest", "ur": "سینہ", "obj_en": "the chest", "obj_ur": "سینے"},
+    {"id": "stomach", "cat": "body", "en": "Stomach", "ur": "پیٹ", "obj_en": "the stomach", "obj_ur": "پیٹ"},
+    {"id": "back", "cat": "body", "en": "Back", "ur": "کمر", "obj_en": "the back", "obj_ur": "کمر"},
+    {"id": "arm", "cat": "body", "en": "Arm", "ur": "بازو", "obj_en": "the arm", "obj_ur": "بازو"},
+    {"id": "leg", "cat": "body", "en": "Leg", "ur": "ٹانگ", "obj_en": "the leg", "obj_ur": "ٹانگ"},
+    {"id": "knee", "cat": "body", "en": "Knee", "ur": "گھٹنا", "obj_en": "the knee", "obj_ur": "گھٹنے"},
+
+    {"id": "today", "cat": "time", "en": "Since today", "ur": "آج سے"},
+    {"id": "yesterday", "cat": "time", "en": "Since yesterday", "ur": "کل سے"},
+    {"id": "hour", "cat": "time", "en": "Hour", "ur": "گھنٹہ", "unit_en": ["hour", "hours"], "unit_ur": "گھنٹے"},
+    {"id": "day", "cat": "time", "en": "Day", "ur": "دن", "unit_en": ["day", "days"], "unit_ur": "دن"},
+    {"id": "week", "cat": "time", "en": "Week", "ur": "ہفتہ", "unit_en": ["week", "weeks"], "unit_ur": "ہفتے"},
+    {"id": "month", "cat": "time", "en": "Month", "ur": "مہینہ", "unit_en": ["month", "months"], "unit_ur": "مہینے"},
+
+    {"id": "mild", "cat": "severity", "en": "Mild", "ur": "ہلکی"},
+    {"id": "moderate", "cat": "severity", "en": "Moderate", "ur": "درمیانی"},
+    {"id": "severe", "cat": "severity", "en": "Severe", "ur": "شدید"},
+
+    {"id": "fever", "cat": "symptom", "en": "Fever", "ur": "بخار", "clin": "fever"},
+    {"id": "vomiting", "cat": "symptom", "en": "Vomiting", "ur": "قے", "clin": "vomiting"},
+    {"id": "cough", "cat": "symptom", "en": "Cough", "ur": "کھانسی", "clin": "cough"},
+    {"id": "dizzy", "cat": "symptom", "en": "Dizziness", "ur": "چکر آنا", "clin": "dizziness"},
+    {"id": "bleeding", "cat": "symptom", "en": "Bleeding", "ur": "خون بہنا", "clin": "bleeding"},
+    {"id": "breathless", "cat": "symptom", "en": "Shortness of breath", "ur": "سانس لینے میں دشواری", "clin": "shortness of breath"},
+    {"id": "sweating", "cat": "symptom", "en": "Sweating", "ur": "پسینہ آنا", "clin": "diaphoresis (sweating)"},
+    {"id": "weakness", "cat": "symptom", "en": "Weakness", "ur": "کمزوری", "clin": "weakness"},
+
+    {"id": "pain", "cat": "reply", "en": "Pain", "ur": "درد"},
+    {"id": "medicine", "cat": "reply", "en": "Medicine", "ur": "دوا"},
+    {"id": "allergy", "cat": "reply", "en": "Allergy", "ur": "الرجی"},
+    {"id": "water", "cat": "reply", "en": "Water", "ur": "پانی"},
+    {"id": "food", "cat": "reply", "en": "Food", "ur": "کھانا"},
+    {"id": "toilet", "cat": "reply", "en": "Toilet", "ur": "واش روم"}
+  ]
+}
