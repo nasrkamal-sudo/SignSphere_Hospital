@@ -1,5 +1,5 @@
 /* App shell: boot, real-time sync (SSE), mode routing, rendering, events. */
-import { S, hooks, esc, cam, loadModel, upsertSession, getS, urlParam, toast } from './core.js';
+import { S, hooks, esc, cam, loadModel, upsertSession, getS, urlParam, toast, emergencyAlarm } from './core.js';
 import { patientView, sosHTML, sosDisabled, patientActions, syncPatient, resetPatient, resumePatient, onSessionUpdate, recognizer } from './patient.js';
 import { staffView, staffActions, staffInput, staffKey, stopMic } from './staff.js';
 import { doctorView, doctorActions, doctorInput, onDoctorSession, unreadCount, unreadCritical, setDoctorFromUrl } from './doctor.js';
@@ -123,6 +123,7 @@ function connect() {
     const note = onDoctorSession(prev, s);
     if (note) toast(`${note.critical ? 'CRITICAL case' : 'New case'} sent to you: ${note.name}`, note.critical ? 'crit' : 'warn');
     onSessionUpdate(s);
+    if (s.emergency && !(prev && prev.emergency) && s.status !== 'closed' && S.mode !== 'patient' && S.mode !== 'doctor') emergencyAlarm(s.id);
     // a new patient appears on the dashboard straight away, unless staff are in the middle of writing/dictating
     const cur = getS(S.staff.selectedId), busy = S.staff.draft.trim() || S.staff.speech !== 'idle';
     if (!S.staff.selectedId || (isNew && (!busy || s.emergency)) || (cur && cur.status === 'closed' && s.id !== cur.id && isNew)) { S.staff.selectedId = s.id; S.staff.open = false; }

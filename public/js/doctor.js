@@ -1,6 +1,6 @@
 /* Doctor screen: a doctor chooses who they are, then sees the cases staff have notified them about —
  * critical or not, patient summary, the patient's signed answers — and can acknowledge. Live over SSE. */
-import { S, render, esc, bl, ic, api, getS, upsertSession, fmtT, fmtDT } from './core.js';
+import { S, render, esc, bl, ic, api, getS, upsertSession, fmtT, fmtDT, tones } from './core.js';
 import { QUESTIONS, DOCTORS, DEPT_UR, doctorStatus, isNotified, notifEntry, ackAt } from './logic.js';
 
 const LS_DOC = 'signsphere.doctorId', LS_SND = 'signsphere.doctorSound';
@@ -23,19 +23,10 @@ export const unreadCount = () => myCases().filter(s => s.status !== 'closed' && 
 export const unreadCritical = () => myCases().some(s => s.status !== 'closed' && !ackAt(s, D.id) && isCrit(s));
 
 /* ---------- alerts when a new notification arrives ---------- */
-let audio = null;
 function beep(critical) {
   if (!D.sound) return;
-  try {
-    audio = audio || new (window.AudioContext || window.webkitAudioContext)();
-    const n = critical ? 3 : 1;
-    for (let i = 0; i < n; i++) {
-      const t0 = audio.currentTime + i * 0.28, o = audio.createOscillator(), g = audio.createGain();
-      o.type = 'sine'; o.frequency.value = critical ? 988 : 660; o.connect(g); g.connect(audio.destination);
-      g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(0.25, t0 + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.22);
-      o.start(t0); o.stop(t0 + 0.24);
-    }
-  } catch { /* audio blocked until the page has been clicked */ }
+  const f = critical ? 988 : 660;
+  tones(Array.from({ length: critical ? 3 : 1 }, (_, i) => [f, i * 0.28, 0.24]));
 }
 /** Called by the SSE handler with the previous and new copy of a session. */
 export function onDoctorSession(prev, s) {

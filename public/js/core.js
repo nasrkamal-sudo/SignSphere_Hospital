@@ -67,6 +67,32 @@ export function toast(msg, kind = 'warn') {
   clearTimeout(toastT); toastT = setTimeout(() => { S.toast = null; render(); }, 6000);
 }
 
+/* ---------- sound (Web Audio; browsers block it until the page has been clicked once) ---------- */
+let audio = null;
+const ctx = () => (audio = audio || new (window.AudioContext || window.webkitAudioContext)());
+document.addEventListener('pointerdown', () => { try { if (ctx().state === 'suspended') audio.resume(); } catch { /* no audio */ } }, { capture: true });
+/** Plays a list of [frequencyHz, startSec, lengthSec] tones. */
+export function tones(list, vol = 0.25) {
+  try {
+    const a = ctx(), now = a.currentTime;
+    for (const [f, at, len] of list) {
+      const t0 = now + at, o = a.createOscillator(), g = a.createGain();
+      o.type = 'sine'; o.frequency.value = f; o.connect(g); g.connect(a.destination);
+      g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(vol, t0 + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t0 + len - 0.02);
+      o.start(t0); o.stop(t0 + len);
+    }
+  } catch { /* audio blocked until the page has been clicked */ }
+}
+const alarmed = new Set();
+/** Urgent hi-lo alarm for an emergency, played at most once per session on this screen. */
+export function emergencyAlarm(sessionId) {
+  if (alarmed.has(sessionId)) return;
+  alarmed.add(sessionId);
+  const seq = [];
+  for (let i = 0; i < 4; i++) seq.push([1046, i * 0.5, 0.24], [784, i * 0.5 + 0.25, 0.24]);
+  tones(seq, 0.35);
+}
+
 /* ---------- server API ---------- */
 export async function api(path, method = 'GET', body) {
   try {

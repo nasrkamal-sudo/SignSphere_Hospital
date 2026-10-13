@@ -1,5 +1,5 @@
 /* Patient screen: live camera -> recognised signs -> on-screen interpretation -> confirm -> staff dashboard. */
-import { S, render, esc, bl, bi, ic, cam, api, getS, activeSession, upsertSession, setSys, trainedSet, toast, urlParam } from './core.js';
+import { S, render, esc, bl, bi, ic, cam, api, getS, activeSession, upsertSession, setSys, trainedSet, toast, urlParam, emergencyAlarm } from './core.js';
 import { LiveRecognizer } from './slr.js';
 import { QUESTIONS, allowedGlosses, replyGlosses, buildAnswer, buildReply, summarize, classify, pickDoctor, DEPT_UR, urNum } from './logic.js';
 
@@ -166,6 +166,7 @@ async function triggerEmergency() {
     if (s.emergency) return;
     const triage = classify(s.qa, true), summary = summarize(s.qa, { emergency: true });
     p.stage = 'emergency'; p.tokens = []; p.picker = false;
+    emergencyAlarm(s.id);
     await api(`/api/sessions/${s.id}/exchange`, 'POST', { from: 'system', text: 'Emergency button pressed on patient screen.' });
     upsertSession(await api(`/api/sessions/${s.id}/patch`, 'POST', { emergency: true, status: 'awaiting', triage, summary, department: triage.department, doctorId: pickDoctor(triage.department) }));
     S.staff.selectedId = s.id; S.staff.tab = 'live';
